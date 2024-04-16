@@ -1,41 +1,40 @@
 <#
 .SYNOPSIS
-	Download and extract a file from a GitHub release.
+	Download and extract a PowerToys Run Plugin from a GitHub release.
 .DESCRIPTION
-	Find the latest release in GitHub API URL $url, download the first file that matches $pattern, extract the file $name to $dest.
-.NOTES
-	7z cli must be in the PATH.
+	Find the latest release in GitHub API URL $url, extract the content to $dest
 .LINK
 	https://github.com/8LWXpg/gpm_scripts
 .EXAMPLE
 	Download the latest release if ETAG is not matched.
-	gh.ps1 -name <NAME> -dest <DEST> -etag <ETAG> <URL> <PATTERN>
+	ptr.ps1 -url <URL> -name <NAME> -dest <DEST> -etag <ETAG>
 #>
 
 
 param (
 	[Parameter(Mandatory)]
-	[string]$url,
+	[string]
+	$url,
 
 	[Parameter(Mandatory)]
-	[string]$pattern,
+	[string]
+	$name,
 
-	# File name to extract
 	[Parameter(Mandatory)]
-	[string]$name,
+	[string]
+	$dest,
 
-	# Destination folder
-	[Parameter(Mandatory)]
-	[string]$dest,
-
-	[string]$etag
+	[string]
+	$etag
 )
+$ErrorActionPreference = 'Stop'
 
 $response = Invoke-RestMethod $url
-$result = $response.assets | Where-Object { $_.name -match $pattern }
+$result = $response.assets | Where-Object { $_.name.Contains('x64') }
 
 $dl_url = $result[0].browser_download_url
 $file_name = $result[0].name
+
 $r = if ($etag) {
 	try {
 		Invoke-WebRequest $dl_url -Headers @{ 'If-None-Match' = $etag }
@@ -54,6 +53,6 @@ $r = if ($etag) {
 $etag = $r.Headers.ETag
 Set-Content $file_name $r.Content -AsByteStream
 
-7z e $file_name "-o$dest" -r $name -y -bso0 -bsp0 && Remove-Item $file_name
+7z x $file_name "-o$dest" -y -bso0 -bsp0 && Remove-Item $file_name
 
 $etag

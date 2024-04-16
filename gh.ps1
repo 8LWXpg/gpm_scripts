@@ -1,3 +1,16 @@
+<#
+.SYNOPSIS
+	Download and extract a file from a GitHub release.
+.DESCRIPTION
+	Find the latest release in GitHub API URL $url, download the first file that matches $pattern, extract the file $name to $dest.
+.NOTES
+	Prerequisite: 7z cli must be in the PATH.
+.LINK
+	https://github.com/8LWXpg/gpm_scripts
+.EXAMPLE
+	Download the latest release if ETAG is not matched.
+	gh.ps1 -name <NAME> -dest <DEST> -etag <ETAG> <URL> <PATTERN>
+#>
 param (
 	[Parameter(Mandatory)]
 	[string]$url,

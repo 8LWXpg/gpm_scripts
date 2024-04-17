@@ -19,11 +19,10 @@ $r = if ($etag) {
 	try {
 		Invoke-WebRequest $dl_url -Headers @{ 'If-None-Match' = $etag }
 	} catch [System.Net.Http.HttpRequestException] {
-		if ($_.Exception.StatusCode.value__ -ne 304) {
-			throw $_
-		} else {
-			exit -1
+		if ($_.Exception.StatusCode.value__ -eq 304) {
+			# Write-Error 'up-to-date'
 		}
+		throw $_
 	} catch {
 		throw $_
 	}

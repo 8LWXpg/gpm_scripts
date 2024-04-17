@@ -29,9 +29,10 @@ param (
 )
 $ErrorActionPreference = 'Stop'
 
-$file_name, $etag = ~/.gpm/scripts/lib/gh_dl.ps1 -url $url -ScriptBlock { $_.name.Contains('x64') }
-if ($LASTEXITCODE -ne 0) {
-	exit $LASTEXITCODE
+try {
+	$file_name, $etag = ~/.gpm/scripts/lib/gh_dl.ps1 -url $url -ScriptBlock { $_.name.Contains('x64') }
+} catch {
+	exit 1
 }
 
 7z x $file_name "-o$dest" -y -bso0 -bsp0 && Remove-Item $file_name

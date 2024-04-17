@@ -31,7 +31,8 @@ param (
 	[string]$etag
 )
 
-$file_name, $etag = ./lib/gh_dl.ps1 -url $url -script_block { $_.name -match $pattern }
+# absolute path is required, because current directory is not the same as the script directory
+$file_name, $etag = ~/.gpm/scripts/lib/gh_dl.ps1 -url $url -ScriptBlock { $_.name -match $pattern }
 
 7z e $file_name "-o$dest" -r $name -y -bso0 -bsp0 && Remove-Item $file_name
 

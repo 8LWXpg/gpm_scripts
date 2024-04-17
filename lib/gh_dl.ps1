@@ -22,7 +22,7 @@ $r = if ($etag) {
 		if ($_.Exception.StatusCode.value__ -ne 304) {
 			throw $_
 		} else {
-			exit 0
+			exit -1
 		}
 	} catch {
 		throw $_

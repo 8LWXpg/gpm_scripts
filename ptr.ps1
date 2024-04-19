@@ -13,23 +13,21 @@
 
 param (
 	[Parameter(Mandatory)]
-	[string]
-	$url,
+	[string]$repo,
 
 	[Parameter(Mandatory)]
-	[string]
-	$name,
+	[string]$name,
 
 	[Parameter(Mandatory)]
-	[string]
-	$dest,
+	[string]$dest,
 
-	[string]
-	$etag
+	[string]$etag
 )
 $ErrorActionPreference = 'Stop'
 
+$url = "https://api.github.com/repos/$repo/releases/latest"
 try {
+	# absolute path is required, because current directory is not the same as the script directory
 	$file_name, $etag = ~/.gpm/scripts/lib/gh_dl.ps1 -url $url -ScriptBlock { $_.name.Contains('x64') }
 } catch {
 	exit 1

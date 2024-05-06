@@ -33,6 +33,7 @@ try {
 	exit 1
 }
 
-7z x $file_name "-o$dest" -y -bso0 -bsp0 && Remove-Item $file_name
+7z x $file_name "-o$dest" -y -bso0 -bsp0
+Remove-Item $file_name
 
 $etag

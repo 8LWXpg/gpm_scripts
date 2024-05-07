@@ -34,6 +34,10 @@ try {
 }
 
 7z x $file_name "-o$dest" -y -bso0 -bsp0
-Remove-Item $file_name
+if ($?) {
+	Remove-Item $file_name
+} else {
+	exit 1
+}
 
 $etag

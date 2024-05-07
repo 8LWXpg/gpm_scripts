@@ -40,6 +40,11 @@ try {
 	exit 1
 }
 
-7z e $file_name "-o$dest" -r $name -y -bso0 -bsp0 && Remove-Item $file_name
+7z e $file_name "-o$dest" -r $name -y -bso0 -bsp0
+if ($?) {
+	Remove-Item $file_name
+} else {
+	exit 1
+}
 
 $etag

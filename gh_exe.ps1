@@ -9,7 +9,7 @@
 	https://github.com/8LWXpg/gpm_scripts
 .EXAMPLE
 	Download the latest release if ETAG is not matched.
-	gh.ps1 -name <NAME> -dest <DEST> -etag <ETAG> <URL> <PATTERN>
+	gpm repo <repo> a <exe_name> gh_exe <user/repo> <target_assets>
 #>
 
 
@@ -17,6 +17,7 @@ param (
 	[Parameter(Mandatory)]
 	[string]$repo,
 
+	# Pattern to match target assets, like 'x86_64-pc-windows'
 	[Parameter(Mandatory)]
 	[string]$pattern,
 

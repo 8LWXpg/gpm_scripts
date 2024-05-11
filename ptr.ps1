@@ -7,7 +7,7 @@
 	https://github.com/8LWXpg/gpm_scripts
 .EXAMPLE
 	Download the latest release if ETAG is not matched.
-	ptr.ps1 -url <URL> -name <NAME> -dest <DEST> -etag <ETAG>
+	gpm repo <repo> a <plugin_name> ptr <user/repo>
 #>
 
 

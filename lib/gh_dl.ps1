@@ -20,7 +20,7 @@ $r = if ($etag) {
 		Invoke-WebRequest $dl_url -Headers @{ 'If-None-Match' = $etag }
 	} catch [System.Net.Http.HttpRequestException] {
 		if ($_.Exception.StatusCode.value__ -eq 304) {
-			# Write-Error 'up-to-date'
+			throw "$($PSStyle.Foreground.BrightCyan)$file_name$($PSStyle.Reset) is up to date."
 		}
 		throw $_
 	} catch {

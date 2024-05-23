@@ -25,10 +25,6 @@ param (
 	[Parameter(Mandatory)]
 	[string]$name,
 
-	# Destination folder
-	[Parameter(Mandatory)]
-	[string]$dest,
-
 	[string]$etag
 )
 $ErrorActionPreference = 'Stop'
@@ -42,7 +38,7 @@ try {
 	exit 1
 }
 
-7z e $file_name "-o$dest" -r $name -y -bso0 -bsp0
+7z e $file_name '-o.' -r $name -y -bso0 -bsp0
 if ($?) {
 	Remove-Item $file_name
 } else {

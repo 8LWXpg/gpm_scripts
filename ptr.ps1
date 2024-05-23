@@ -18,9 +18,6 @@ param (
 	[Parameter(Mandatory)]
 	[string]$name,
 
-	[Parameter(Mandatory)]
-	[string]$dest,
-
 	[string]$etag
 )
 $ErrorActionPreference = 'Stop'
@@ -34,7 +31,7 @@ try {
 	exit 1
 }
 
-7z x $file_name "-o$dest" -y -bso0 -bsp0
+7z x $file_name '-o.' -y -bso0 -bsp0
 if ($?) {
 	Remove-Item $file_name
 } else {

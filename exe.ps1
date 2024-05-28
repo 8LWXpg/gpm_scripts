@@ -38,6 +38,7 @@ try {
 	exit 1
 }
 
-Rename-Item $file_name $name
+Remove-Item $name -ErrorAction SilentlyContinue
+Rename-Item -LiteralPath $file_name $name -Force
 
 $etag

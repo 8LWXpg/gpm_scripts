@@ -2,7 +2,7 @@
 param (
 	[Parameter(Mandatory)]
 	[string]
-	$url,
+	$repo,
 
 	# Script block to match target assets, reutn bool.
 	[Parameter(Mandatory)]
@@ -10,7 +10,9 @@ param (
 	$ScriptBlock
 )
 
+$url = "https://api.github.com/repos/$repo/releases/latest"
 $response = Invoke-RestMethod $url
+$tag = $response.tag_name
 $result = $response.assets | Where-Object -FilterScript $ScriptBlock
 
 $dl_url = $result[0].browser_download_url
@@ -20,7 +22,7 @@ $r = if ($etag) {
 		Invoke-WebRequest $dl_url -Headers @{ 'If-None-Match' = $etag }
 	} catch [System.Net.Http.HttpRequestException] {
 		if ($_.Exception.StatusCode.value__ -eq 304) {
-			throw "$($PSStyle.Foreground.BrightCyan)$file_name$($PSStyle.Reset) is up to date."
+			throw "$($PSStyle.Foreground.BrightCyan)$repo@$tag$($PSStyle.Reset) is up to date."
 		}
 		throw $_
 	} catch {

@@ -1,12 +1,11 @@
 <#
 .SYNOPSIS
 	Download and extract a PowerToys Run Plugin from a GitHub release.
-.DESCRIPTION
-	Find the latest release in GitHub API URL $url, extract the content to $dest
-.LINK
-	https://github.com/8LWXpg/gpm_scripts
+.PARAMETER repo
+	GitHub repository name.
+.NOTES
+	7z cli must be in the PATH.
 .EXAMPLE
-	Download the latest release if ETAG is not matched.
 	gpm repo <repo> a <plugin_name> ptr <user/repo>
 #>
 

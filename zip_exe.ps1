@@ -1,14 +1,13 @@
 <#
 .SYNOPSIS
 	Download and extract a file from a GitHub release.
-.DESCRIPTION
-	Find the latest release in GitHub API URL $url, download the first file that matches $pattern, extract the file $name to $dest.
+.PARAMETER repo
+	GitHub repository name.
+.PARAMETER pattern
+	Target asset pattern.
 .NOTES
 	7z cli must be in the PATH.
-.LINK
-	https://github.com/8LWXpg/gpm_scripts
 .EXAMPLE
-	Download the latest release if ETAG is not matched.
 	gpm repo <repo> a <exe_name> gh_exe <user/repo> <target_assets>
 #>
 
@@ -17,11 +16,9 @@ param (
 	[Parameter(Mandatory)]
 	[string]$repo,
 
-	# Pattern to match target assets, like 'x86_64-pc-windows'
 	[Parameter(Mandatory)]
 	[string]$pattern,
 
-	# File name to extract
 	[Parameter(Mandatory)]
 	[string]$name,
 

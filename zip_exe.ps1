@@ -11,7 +11,6 @@
 	gpm repo <repo> a <exe_name> gh_exe <user/repo> <target_assets>
 #>
 
-
 param (
 	[Parameter(Mandatory)]
 	[string]$repo,
@@ -34,7 +33,12 @@ try {
 	exit 1
 }
 
-7z e $file_name '-o.' -r $name -y -bso0 -bsp0
+switch -regex ($file_name) {
+	'\.tar.gz' { tar -xzf $file_name $name }
+	'\.tar.xz' { tar -xJf $file_name $name }
+	Default { 7z e $file_name '-o.' -r $name -y -bso0 -bsp0 }
+}
+
 if ($?) {
 	Remove-Item $file_name
 } else {

@@ -9,7 +9,6 @@
 	gpm repo <repo> a <plugin_name> ptr <user/repo>
 #>
 
-
 param (
 	[Parameter(Mandatory)]
 	[string]$repo,

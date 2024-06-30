@@ -31,6 +31,7 @@ $r = if ($etag) {
 } else {
 	Invoke-WebRequest $dl_url
 }
+[Console]::Error.WriteLine("Updated to $($PSStyle.Foreground.BrightCyan)$repo@$tag$($PSStyle.Reset).")
 $etag = $r.Headers.ETag
 Set-Content $file_name $r.Content -AsByteStream
 

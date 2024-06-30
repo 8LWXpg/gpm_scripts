@@ -34,3 +34,11 @@ gpm repo <repo> a <plugin> ptr <user/repo>
 
 - `<plugin>`: The name of the plugin, must be the same as the folder name.
 - `<user/repo>`: The GitHub repository to download from.
+
+## `dir`
+
+Copy a directory to repo root.
+
+```pwsh
+gpm repo <repo> a <name> dir <path> [-c]
+```

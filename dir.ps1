@@ -7,15 +7,12 @@
     gpm repo <repo> a <name> dir <path> [-c]
 #>
 
-
-
 param (
     # path to the directory
     [Parameter(Mandatory)]
     [string]
     $path,
 
-    [Parameter(Mandatory)]
     [string]
     $cwd,
 
@@ -25,8 +22,10 @@ param (
 )
 
 try {
-    Push-Location
-    Set-Location $cwd
+    if ($cwd) {
+        Push-Location
+        Set-Location $cwd
+    }
     $path = (Resolve-Path $path).Path
     Pop-Location
     Copy-Item $path $name -Recurse -Force

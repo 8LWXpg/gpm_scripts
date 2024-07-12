@@ -28,20 +28,20 @@ $ErrorActionPreference = 'Stop'
 try {
 	# absolute path is required, because current directory is not the same as the script directory
 	$file_name, $etag = ~/.gpm/scripts/lib/gh_dl.ps1 -repo $repo -ScriptBlock { $_.name -match $pattern }
+
+	switch -regex ($file_name) {
+		'\.tar.gz' { tar -xzf $file_name $name }
+		'\.tar.xz' { tar -xJf $file_name $name }
+		Default { 7z e $file_name '-o.' -r $name -y -bso0 -bsp0 }
+	}
+
+	if ($?) {
+		Remove-Item $file_name
+	} else {
+		exit 1
+	}
 } catch {
 	[Console]::Error.WriteLine($_.Exception.Message)
-	exit 1
-}
-
-switch -regex ($file_name) {
-	'\.tar.gz' { tar -xzf $file_name $name }
-	'\.tar.xz' { tar -xJf $file_name $name }
-	Default { 7z e $file_name '-o.' -r $name -y -bso0 -bsp0 }
-}
-
-if ($?) {
-	Remove-Item $file_name
-} else {
 	exit 1
 }
 

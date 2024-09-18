@@ -13,26 +13,19 @@ param (
 $url = "https://api.github.com/repos/$repo/releases/latest"
 $response = Invoke-RestMethod $url
 $tag = $response.tag_name
+if ($tag -eq $etag) {
+	throw "$($PSStyle.Foreground.BrightCyan)$repo@$tag$($PSStyle.Reset) is up to date."
+}
 $result = $response.assets | Where-Object -FilterScript $ScriptBlock
 
 $dl_url = $result[0].browser_download_url
 $file_name = $result[0].name
-$r = if ($etag) {
-	try {
-		Invoke-WebRequest $dl_url -Headers @{ 'If-None-Match' = $etag }
-	} catch [System.Net.Http.HttpRequestException] {
-		if ($_.Exception.StatusCode.value__ -eq 304) {
-			throw "$($PSStyle.Foreground.BrightCyan)$repo@$tag$($PSStyle.Reset) is up to date."
-		}
-		throw $_
-	} catch {
-		throw $_
-	}
-} else {
+$r = try {
 	Invoke-WebRequest $dl_url
+} catch {
+	throw $_
 }
 [Console]::Error.WriteLine("Updated to $($PSStyle.Foreground.BrightCyan)$repo@$tag$($PSStyle.Reset).")
-$etag = $r.Headers.ETag
 Set-Content $file_name $r.Content -AsByteStream
 
-$file_name, $etag
+$file_name, $tag

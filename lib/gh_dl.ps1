@@ -7,7 +7,10 @@ param (
 	# Script block to match target assets, reutn bool.
 	[Parameter(Mandatory)]
 	[scriptblock]
-	$ScriptBlock
+	$ScriptBlock,
+
+	# Current etag
+	[string]$etag
 )
 
 $url = "https://api.github.com/repos/$repo/releases/latest"

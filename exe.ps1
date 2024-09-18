@@ -29,7 +29,7 @@ $ErrorActionPreference = 'Stop'
 
 try {
 	# absolute path is required, because current directory is not the same as the script directory
-	$file_name, $etag = ~/.gpm/scripts/lib/gh_dl.ps1 -repo $repo -ScriptBlock { $_.name -match $pattern }
+	$file_name, $etag = ~/.gpm/scripts/lib/gh_dl.ps1 -repo $repo -ScriptBlock { $_.name -match $pattern } -etag $etag
 
 	if ($name -ne $file_name) {
 		Remove-Item $name -ErrorAction SilentlyContinue

@@ -22,7 +22,7 @@ $ErrorActionPreference = 'Stop'
 
 try {
 	# absolute path is required, because current directory is not the same as the script directory
-	$file_name, $etag = ~/.gpm/scripts/lib/gh_dl.ps1 -repo $repo -ScriptBlock { $_.name.Contains('x64') }
+	$file_name, $etag = ~/.gpm/scripts/lib/gh_dl.ps1 -repo $repo -ScriptBlock { $_.name.Contains('x64') } -etag $etag
 
 	7z x $file_name '-o.' -y -bso0 -bsp0
 	if ($?) {

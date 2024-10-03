@@ -9,14 +9,14 @@ param (
 	[scriptblock]
 	$ScriptBlock,
 
-	# Current etag
-	[string]$etag
+	# Current tag
+	[string]$tag
 )
 
 $url = "https://api.github.com/repos/$repo/releases/latest"
 $response = Invoke-RestMethod $url
-$tag = $response.tag_name
-if ($tag -eq $etag) {
+$new_tag = $response.tag_name
+if ($tag -eq $new_tag) {
 	throw "$($PSStyle.Foreground.BrightCyan)$repo@$tag$($PSStyle.Reset) is up to date."
 }
 $result = $response.assets | Where-Object -FilterScript $ScriptBlock
@@ -28,7 +28,7 @@ $r = try {
 } catch {
 	throw $_
 }
-[Console]::Error.WriteLine("Updated to $($PSStyle.Foreground.BrightCyan)$repo@$tag$($PSStyle.Reset).")
+[Console]::Error.WriteLine("Updated to $($PSStyle.Foreground.BrightCyan)$repo@$new_tag$($PSStyle.Reset).")
 Set-Content $file_name $r.Content -AsByteStream
 
-$file_name, $tag
+$file_name, $new_tag

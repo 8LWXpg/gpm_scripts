@@ -21,13 +21,13 @@ param (
 	[Parameter(Mandatory)]
 	[string]$name,
 
-	[string]$etag
+	[string]$tag
 )
 $ErrorActionPreference = 'Stop'
 
 try {
 	# absolute path is required, because current directory is not the same as the script directory
-	$file_name, $etag = ~/.gpm/scripts/lib/gh_dl.ps1 -repo $repo -ScriptBlock { $_.name -match $pattern } -etag $etag
+	$file_name, $tag = ~/.gpm/scripts/lib/gh_dl.ps1 -repo $repo -ScriptBlock { $_.name -match $pattern } -tag $tag
 
 	switch -regex ($file_name) {
 		'\.tar.gz' { tar -xzf $file_name $name }
@@ -45,4 +45,4 @@ try {
 	exit 1
 }
 
-$etag
+$tag

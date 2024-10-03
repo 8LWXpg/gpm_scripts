@@ -14,7 +14,7 @@ param (
     $path,
 
     [string]
-    $cwd,
+    $dir,
 
     # dir name
     [Parameter(Mandatory)]
@@ -22,12 +22,13 @@ param (
 )
 
 try {
-    if ($cwd) {
+    if ($dir) {
         Push-Location
-        Set-Location $cwd
+        Set-Location $dir
     }
     $path = (Resolve-Path $path).Path
     Pop-Location
+    Remove-Item -r $name -ErrorAction Ignore
     Copy-Item $path $name -Recurse -Force
 } catch {
     [Console]::Error.WriteLine($_.Exception.Message)

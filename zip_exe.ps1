@@ -30,8 +30,8 @@ try {
 	$file_name, $tag = ~/.gpm/scripts/lib/gh_dl.ps1 -repo $repo -ScriptBlock { $_.name -match $pattern } -tag $tag
 
 	switch -regex ($file_name) {
-		'\.tar.gz' { tar -xzf $file_name $name }
-		'\.tar.xz' { tar -xJf $file_name $name }
+		'\.tar.gz' { 7z x -so $file_name | 7z e -si -ttar '-o.' -r $name -y -bso0 -bsp0 }
+		'\.tar.xz' { 7z x -so $file_name | 7z e -si -ttar '-o.' -r $name -y -bso0 -bsp0 }
 		Default { 7z e $file_name '-o.' -r $name -y -bso0 -bsp0 }
 	}
 

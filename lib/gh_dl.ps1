@@ -4,7 +4,7 @@ param (
 	[string]
 	$repo,
 
-	# Script block to match target assets, reutn bool.
+	# Script block to match target assets, return bool.
 	[Parameter(Mandatory)]
 	[scriptblock]
 	$ScriptBlock,

@@ -24,21 +24,18 @@ gpm repo <repo> a <exe> zip_exe <user/repo> <target_assets>
 - `<user/repo>`: The GitHub repository to download from.
 - `<target_assets>`: The target assets pattern, like `x86_64-pc-windows`
 
-## `ptr`
-
-Download latest release of a PowerToys Run Plugin from GitHub repository.
-
-```pwsh
-gpm repo <repo> a <plugin> ptr <user/repo>
-```
-
-- `<plugin>`: The name of the plugin, must be the same as the folder name.
-- `<user/repo>`: The GitHub repository to download from.
-
 ## `dir`
 
 Copy a directory to repo root.
 
 ```pwsh
 gpm repo <repo> a <name> dir <path> [-c]
+```
+
+## `file`
+
+Copy a file to repo root
+
+```pwsh
+gpm repo <repo> a <name> file <path> [-c]
 ```

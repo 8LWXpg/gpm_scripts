@@ -39,3 +39,14 @@ Copy a file to repo root
 ```pwsh
 gpm repo <repo> a <name> file <path> [-c]
 ```
+
+## `user_chrome`
+
+Download userChrom css from git remote
+
+> [!NOTE]
+> First create repo at `userChrome` folder, it uses relative path
+
+```pwsh
+gpm repo <repo> a <name.css> user_chrome <git_url> <css_path_in_git>
+```
